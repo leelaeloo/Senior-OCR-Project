@@ -1,51 +1,10 @@
 "use client";
 
-import { useRef } from "react";
 import { useRouter } from "next/navigation";
-import LoadingSpinner from "@/components/LoadingSpinner";
-import OCRResultCard from "@/components/OCRResultCard";
 import PageLayout from "@/components/PageLayout";
-
-import { useOCR } from "@/hooks/useOCR";
-import { useTTS } from "@/hooks/useTTS";
-import { copyToClipboard } from "@/lib/clipboard";
 
 export default function Home() {
   const router = useRouter();
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // 커스텀 훅
-  const { isProcessing, result, error, processImage, reset, setError } =
-    useOCR();
-  const { isSpeaking, speak, stop } = useTTS();
-
-  // 파일 선택 핸들러
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      processImage(file);
-    }
-  };
-
-  // 초기화 핸들러
-  const handleReset = () => {
-    reset();
-    stop();
-  };
-
-  // TTS 핸들러
-  const handleSpeak = () => {
-    if (result?.text) {
-      speak(result.text);
-    }
-  };
-
-  // 복사 핸들러
-  const handleCopy = () => {
-    if (result?.text) {
-      copyToClipboard(result.text);
-    }
-  };
 
   // 메인 화면
   return (
@@ -116,75 +75,40 @@ export default function Home() {
 
       <div className="grid lg:grid-cols-2 gap-6">
         <div className="lg:col-span-1">
-          {result ? (
-            <div className="animate-slide-in-right">
-              <OCRResultCard
-                result={result}
-                isSpeaking={isSpeaking}
-                onSpeak={handleSpeak}
-                onReset={handleReset}
-                onCopy={handleCopy}
-              />
-            </div>
-          ) : (
-            <div className="card bg-white">
-              {/* 시작하기 헤더 */}
-              <div className="mb-5 text-center">
-                <div className="mb-3">
-                  <span className="text-6xl inline-block animate-wiggle">
-                    📸
-                  </span>
-                </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                  사진 찍기
-                </h3>
-                <p className="text-base md:text-xl text-gray-700">
-                  보고싶은 글자를 사진으로 찍어보세요
-                </p>
+          <div className="card bg-white">
+            {/* 시작하기 헤더 */}
+            <div className="mb-5 text-center">
+              <div className="mb-3">
+                <span className="text-6xl inline-block animate-wiggle">📸</span>
               </div>
-
-              {isProcessing ? (
-                <LoadingSpinner />
-              ) : (
-                <>
-                  {/* 에러 메시지 */}
-                  {error && (
-                    <div className="mb-4 bg-red-50 p-4 rounded-xl text-center animate-fade-in">
-                      <p className="text-base text-red-800 font-medium">
-                        {error}
-                      </p>
-                      <button
-                        onClick={() => setError(null)}
-                        className="mt-2 text-sm text-red-600 hover:text-red-800 underline"
-                      >
-                        닫기
-                      </button>
-                    </div>
-                  )}
-
-                  {/* 메인 촬영 버튼 */}
-                  <button
-                    onClick={() => fileInputRef.current?.click()}
-                    className="w-full bg-black hover:bg-gray-800 text-white font-bold py-6 px-6 rounded-xl transition-all mb-5 hover-scale-sm"
-                  >
-                    <span className="text-xl">사진 찍기</span>
-                  </button>
-
-                  {/* 빠른 팁 */}
-                  <div className="bg-gray-100 rounded-xl p-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <h4 className="text-xl font-bold text-gray-900">
-                        잘 찍는 방법
-                      </h4>
-                    </div>
-                    <p className="text-base text-gray-700">
-                      밝은 곳에서 · 바르게 · 가까이 · 천천히
-                    </p>
-                  </div>
-                </>
-              )}
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                사진 찍기
+              </h3>
+              <p className="text-base md:text-xl text-gray-700">
+                보고싶은 글자를 사진으로 찍어보세요
+              </p>
             </div>
-          )}
+
+            {/* 메인 촬영 버튼 */}
+            <button
+              onClick={() => router.push("/result")}
+              className="w-full bg-black hover:bg-gray-800 text-white font-bold py-6 px-6 rounded-xl transition-all mb-5 hover-scale-sm"
+            >
+              <span className="text-xl">사진 찍기</span>
+            </button>
+
+            {/* 빠른 팁 */}
+            <div className="bg-gray-100 rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <h4 className="text-xl font-bold text-gray-900">
+                  잘 찍는 방법
+                </h4>
+              </div>
+              <p className="text-base text-gray-700">
+                밝은 곳에서 · 바르게 · 가까이 · 천천히
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* 오른쪽: 부분 읽기 */}
@@ -196,7 +120,7 @@ export default function Home() {
                 <span className="text-6xl inline-block animate-wiggle">👆🏻</span>
               </div>
               <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                부분만 읽기
+                부분 읽기
               </h3>
               <p className="text-base md:text-xl text-gray-700">
                 필요한 부분만 콕! 집어서 읽어드려요
@@ -225,16 +149,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      {/* 숨겨진 파일 입력 */}
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept="image/*"
-        capture="environment"
-        onChange={handleFileSelect}
-        className="hidden"
-      />
     </PageLayout>
   );
 }
