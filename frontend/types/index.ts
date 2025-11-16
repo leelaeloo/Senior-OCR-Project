@@ -1,7 +1,3 @@
-/**
- * 타입 정의
- */
-
 export interface OCRResult {
   task_id?: string;
   text: string;

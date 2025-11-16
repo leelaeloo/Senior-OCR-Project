@@ -1,5 +1,3 @@
-"""History related API routes"""
-
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -13,14 +11,11 @@ router = APIRouter(tags=["History"])
 
 @router.get("/history")
 async def get_history(limit: int = 10, db: AsyncSession = Depends(get_db)):
-    """최근 OCR 기록 조회 (DB에서)"""
     try:
-        # DB에서 최신순으로 조회
         query = select(OCRHistory).order_by(desc(OCRHistory.created_at)).limit(limit)
         result = await db.execute(query)
         records = result.scalars().all()
 
-        # 응답 데이터 구성
         history = []
         for record in records:
             history.append(
@@ -49,9 +44,7 @@ async def get_history(limit: int = 10, db: AsyncSession = Depends(get_db)):
 
 @router.delete("/history/{record_id}")
 async def delete_history(record_id: int, db: AsyncSession = Depends(get_db)):
-    """OCR 기록 삭제"""
     try:
-        # DB에서 레코드 찾기
         query = select(OCRHistory).where(OCRHistory.id == record_id)
         result = await db.execute(query)
         record = result.scalar_one_or_none()
@@ -59,7 +52,6 @@ async def delete_history(record_id: int, db: AsyncSession = Depends(get_db)):
         if not record:
             raise HTTPException(status_code=404, detail="기록을 찾을 수 없습니다")
 
-        # 삭제
         await db.delete(record)
         await db.commit()
 
@@ -75,9 +67,7 @@ async def delete_history(record_id: int, db: AsyncSession = Depends(get_db)):
 
 @router.get("/history/{record_id}")
 async def get_history_detail(record_id: int, db: AsyncSession = Depends(get_db)):
-    """특정 OCR 기록 상세 조회"""
     try:
-        # DB에서 레코드 찾기
         query = select(OCRHistory).where(OCRHistory.id == record_id)
         result = await db.execute(query)
         record = result.scalar_one_or_none()

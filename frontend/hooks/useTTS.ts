@@ -1,7 +1,3 @@
-/**
- * Text-to-Speech 커스텀 훅
- */
-
 import { useState } from "react";
 import { speak as ttsSpeak, stopSpeaking } from "@/lib/tts";
 

@@ -1,7 +1,3 @@
-/**
- * 문서 타입 선택 그리드 컴포넌트
- */
-
 import {
   Camera,
   FileText,
@@ -22,9 +18,7 @@ export default function DocumentTypeGrid({
 
   return (
     <>
-      {/* 문서 타입 선택 버튼 */}
       <div className="grid grid-cols-2 gap-2 mb-3">
-        {/* 약봉투 버튼 */}
         <button
           onClick={onSelectFile}
           className="bg-yellow-100 hover:bg-yellow-200 rounded-lg p-2 transition-all animate-scale-in aspect-square"
@@ -41,7 +35,6 @@ export default function DocumentTypeGrid({
           </div>
         </button>
 
-        {/* 일반 문서 버튼 */}
         <button
           onClick={onSelectFile}
           className="bg-yellow-100 hover:bg-yellow-200 rounded-lg p-2 transition-all animate-scale-in aspect-square"
@@ -58,7 +51,6 @@ export default function DocumentTypeGrid({
           </div>
         </button>
 
-        {/* 신문/책 버튼 */}
         <button
           onClick={onSelectFile}
           className="bg-yellow-100 hover:bg-yellow-200 rounded-lg p-2 transition-all animate-scale-in aspect-square"
@@ -75,7 +67,6 @@ export default function DocumentTypeGrid({
           </div>
         </button>
 
-        {/* 사진 촬영 버튼 */}
         <button
           onClick={onSelectFile}
           className="bg-yellow-100 hover:bg-yellow-200 rounded-lg p-2 transition-all animate-scale-in aspect-square"
@@ -93,7 +84,6 @@ export default function DocumentTypeGrid({
         </button>
       </div>
 
-      {/* 영역 선택 OCR 버튼 */}
       <div className="bg-yellow-100 rounded-lg p-3 text-center animate-fade-in-up mb-2">
         <div className="flex items-center justify-center gap-1.5 mb-1.5">
           <div className="bg-white rounded-md p-0.5">

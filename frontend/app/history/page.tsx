@@ -88,7 +88,6 @@ export default function HistoryPage() {
   const handleDeleteConfirm = async (id: number) => {
     try {
       await axios.delete(`${API_URL}/history/${id}`);
-      // 삭제 후 목록에서 제거
       setHistory(history.filter((item) => item.id !== id));
       setDeleteConfirm(null);
     } catch (err) {
@@ -114,15 +113,12 @@ export default function HistoryPage() {
     }
 
     if (isSpeaking && speakingId === id) {
-      // 같은 항목 클릭 시 중지
       speechSynthesis.cancel();
       setIsSpeaking(false);
       setSpeakingId(null);
     } else {
-      // 다른 항목 클릭 시 새로 읽기
       speechSynthesis.cancel();
 
-      // 줄바꿈을 짧은 멈춤으로 변환하여 자연스럽게 읽기
       const cleanedText = text.replace(/\n+/g, ". ");
 
       const utterance = new SpeechSynthesisUtterance(cleanedText);
@@ -147,7 +143,6 @@ export default function HistoryPage() {
     }
   };
 
-  // 유틸리티 함수
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
     const now = new Date();
@@ -165,59 +160,60 @@ export default function HistoryPage() {
     });
   };
 
-  // 렌더링
   return (
     <PageLayout
       maxWidth="4xl"
       customButtons={[
+        {
+          label: "도움말",
+          onClick: () => router.push("/guide"),
+        },
         {
           label: "돌아가기",
           onClick: () => router.push("/"),
         },
       ]}
     >
-      <div className="card md:bg-gray-100 rounded-3xl p-6">
-        {/* 헤더 */}
-        <div className="mb- pb-6 border-b border-gray-300">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-4">
-            기록 보기
+      <div className="card rounded-3xl p-6 md:p-8">
+        <div className="mb-8 pb-6 border-b-2 border-gray-200">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-4">
+            📚 기록 보기
           </h1>
-          <p className="text-base md:text-lg text-gray-600 font-medium text-center">
+          <p className="text-lg md:text-xl text-gray-600 text-center">
             이전에 읽으셨던 내용들을 다시 볼 수 있어요!
           </p>
         </div>
 
-        {/* 통계 섹션 */}
         {!isLoading && !error && history.length > 0 && (
-          <div className="mb-6 bg-white rounded-2xl p-5 ">
-            <div className="flex items-center justify-center gap-6 flex-wrap">
+          <div className="mb-8 bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm">
+            <div className="flex items-center justify-center gap-8 md:gap-12 flex-wrap">
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-gray-700 mb-1">
+                <div className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
                   {history.length}
                 </div>
-                <div className="text-sm md:text-base text-gray-700 font-medium">
+                <div className="text-base md:text-lg text-gray-600">
                   읽은 문서
                 </div>
               </div>
-              <div className="hidden sm:block w-px h-12 bg-gray-300"></div>
+              <div className="hidden sm:block w-px h-16 bg-gray-300"></div>
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-gray-700 mb-1">
+                <div className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
                   {history.reduce((sum, item) => sum + item.word_count, 0)}
                 </div>
-                <div className="text-sm md:text-base text-gray-700 font-medium">
+                <div className="text-base md:text-lg text-gray-600">
                   읽은 글자
                 </div>
               </div>
-              <div className="hidden sm:block w-px h-12 bg-gray-300"></div>
+              <div className="hidden sm:block w-px h-16 bg-gray-300"></div>
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-gray-700 mb-1">
+                <div className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
                   {Math.round(
                     history.reduce((sum, item) => sum + item.confidence, 0) /
                       history.length
                   )}
                   %
                 </div>
-                <div className="text-sm md:text-base text-gray-700 font-medium">
+                <div className="text-base md:text-lg text-gray-600">
                   평균 정확도
                 </div>
               </div>
@@ -225,7 +221,6 @@ export default function HistoryPage() {
           </div>
         )}
 
-        {/* 로딩 */}
         {isLoading && (
           <div className="text-center py-12">
             <div
@@ -236,7 +231,6 @@ export default function HistoryPage() {
           </div>
         )}
 
-        {/* 에러 */}
         {error && !isLoading && (
           <div className="mb-4 bg-red-50 border-l-4 border-red-500 p-4 rounded">
             <p className="text-red-800">{error}</p>
@@ -249,7 +243,6 @@ export default function HistoryPage() {
           </div>
         )}
 
-        {/* 삭제 확인 모달 */}
         {deleteConfirm && (
           <div className="mb-4 bg-gray-100 border-l-4 border-gray-300 p-4 rounded">
             <p className="text-gray-900 font-medium mb-3">
@@ -277,7 +270,6 @@ export default function HistoryPage() {
           </div>
         )}
 
-        {/* 기록 목록 */}
         {!isLoading && !error && (
           <>
             {history.length === 0 ? (
@@ -294,40 +286,38 @@ export default function HistoryPage() {
                 </button>
               </div>
             ) : (
-              <div className="space-y-4 md:grid md:grid-cols-2 md:gap-4 md:space-y-0">
+              <div className="space-y-4 md:grid md:grid-cols-2 md:gap-6 md:space-y-0">
                 {history.map((item) => (
                   <div
                     key={item.id}
-                    className="bg-white rounded-3xl p-5
-                        hover:bg-gray-200 transition-all"
+                    className="bg-white border border-gray-200 rounded-2xl p-6
+                        hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
                   >
-                    {/* 날짜 */}
-                    <div className="text-lg text-gray-900 font-medium mb-3">
-                      📅 {formatDate(item.created_at)}
+                    <div className="text-lg md:text-xl text-gray-900 font-bold mb-4 flex items-center gap-2">
+                      <span>📅</span> {formatDate(item.created_at)}
                     </div>
 
-                    {/* 텍스트 미리보기 - 줄바꿈 표시 */}
-                    <p className="text-gray-900 mb-4 ocr-text line-clamp-3 text-base whitespace-pre-wrap">
+                    <p className="text-gray-700 mb-4 ocr-text line-clamp-3 text-base md:text-lg whitespace-pre-wrap leading-relaxed">
                       {item.text_preview}
                     </p>
 
-                    {/* 정보 */}
-                    <div className="flex gap-4 text-base text-gray-900 mb-4">
-                      <span className="font-medium">
-                        글자 {item.word_count}개
+                    <div className="flex gap-6 text-base md:text-lg text-gray-600 mb-5 pb-4 border-b border-gray-200">
+                      <span>
+                        📝 {item.word_count}자
                       </span>
-                      <span className="font-medium">
-                        정확도 {item.confidence}%
+                      <span>
+                        ✅ {item.confidence}%
                       </span>
                     </div>
 
-                    {/* 버튼들 */}
-                    <div className="flex gap-2">
+                    <div className="flex gap-3">
                       <button
                         onClick={() => speak(item.id, item.text)}
                         disabled={deleteConfirm === item.id}
                         className={`
-                            flex-1 py-3 rounded-3xl font-bold transition-all                             ${
+                            flex-1 py-4 rounded-xl font-bold text-base transition-all duration-300
+                            shadow-sm hover:shadow-md
+                            ${
                               isSpeaking && speakingId === item.id
                                 ? "bg-red-500 hover:bg-red-600 text-white"
                                 : "bg-black hover:bg-gray-800 text-white"
@@ -348,8 +338,9 @@ export default function HistoryPage() {
                         onClick={() => handleDeleteClick(item.id)}
                         disabled={deleteConfirm === item.id}
                         className={`
-                            px-5 py-3 rounded-3xl bg-red-100 text-red-600
-                            hover:bg-red-200 transition-all font-bold                             ${
+                            px-5 py-4 rounded-xl bg-red-50 text-red-600 border border-red-200
+                            hover:bg-red-100 transition-all duration-300 font-bold
+                            ${
                               deleteConfirm === item.id
                                 ? "opacity-50 cursor-not-allowed"
                                 : ""

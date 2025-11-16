@@ -1,7 +1,3 @@
-/**
- * OCR 처리 커스텀 훅
- */
-
 import { useState } from "react";
 import { OCRResult } from "@/types";
 import { ocrAPI } from "@/services/api";
@@ -25,7 +21,6 @@ export function useOCR() {
         "MB"
       );
 
-      // 이미지 압축 (threshold 이상일 경우)
       let processedFile = file;
       if (file.size > IMAGE_COMPRESSION_THRESHOLD) {
         console.log("🔄 이미지 압축 중...");

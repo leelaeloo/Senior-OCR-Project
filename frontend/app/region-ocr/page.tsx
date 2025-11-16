@@ -40,7 +40,6 @@ export default function RegionOCR() {
     drawHeight: number;
   } | null>(null);
 
-  // 이미지 업로드 핸들러
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -49,11 +48,10 @@ export default function RegionOCR() {
       setImageUrl(url);
       setResult(null);
       setCurrentRegion(null);
-      imageDrawInfoRef.current = null; // 초기화
+      imageDrawInfoRef.current = null;
     }
   };
 
-  // 캔버스에 이미지 그리기
   useEffect(() => {
     if (imageUrl && canvasRef.current) {
       const canvas = canvasRef.current;
@@ -64,58 +62,47 @@ export default function RegionOCR() {
       img.onload = () => {
         imageRef.current = img;
 
-        // 정사각형 캔버스 크기 설정
         const maxSize = Math.min(600, window.innerWidth - 80);
         canvas.width = maxSize;
         canvas.height = maxSize;
 
-        // 이미지를 정사각형에 맞게 조정 (contain 방식)
         const imgRatio = img.width / img.height;
         let drawWidth, drawHeight, offsetX, offsetY;
 
         if (imgRatio > 1) {
-          // 가로가 더 긴 이미지
           drawWidth = maxSize;
           drawHeight = maxSize / imgRatio;
           offsetX = 0;
           offsetY = (maxSize - drawHeight) / 2;
         } else {
-          // 세로가 더 긴 이미지
           drawHeight = maxSize;
           drawWidth = maxSize * imgRatio;
           offsetX = (maxSize - drawWidth) / 2;
           offsetY = 0;
         }
 
-        // 배경을 흰색으로 채우기
         ctx.fillStyle = "#ffffff";
         ctx.fillRect(0, 0, maxSize, maxSize);
 
-        // 이미지 그리기
         ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
 
-        // 이미지 그리기 정보 저장
         imageDrawInfoRef.current = { offsetX, offsetY, drawWidth, drawHeight };
       };
       img.src = imageUrl;
     }
   }, [imageUrl]);
 
-  // 캔버스에 영역 그리기
   const drawRegion = (region: Region) => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
     const drawInfo = imageDrawInfoRef.current;
     if (!ctx || !imageRef.current || !canvas || !drawInfo) return;
 
-    // 캔버스 초기화
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // 배경을 흰색으로 채우기
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // 저장된 정보로 이미지 다시 그리기
     ctx.drawImage(
       imageRef.current,
       drawInfo.offsetX,
@@ -124,20 +111,17 @@ export default function RegionOCR() {
       drawInfo.drawHeight
     );
 
-    // 선택 영역 그리기
     ctx.strokeStyle = "#fbbf24";
     ctx.lineWidth = 3;
     ctx.setLineDash([5, 5]);
     ctx.strokeRect(region.x, region.y, region.width, region.height);
 
-    // 반투명 오버레이
     ctx.fillStyle = "rgba(251, 191, 36, 0.2)";
     ctx.fillRect(region.x, region.y, region.width, region.height);
   };
 
-  // 마우스 다운
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (result) return; // 결과가 있으면 영역 선택 비활성화
+    if (result) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -151,7 +135,6 @@ export default function RegionOCR() {
     setCurrentRegion(null);
   };
 
-  // 마우스 이동
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!isDrawing) return;
 
@@ -172,7 +155,6 @@ export default function RegionOCR() {
     drawRegion(region);
   };
 
-  // 마우스 업
   const handleMouseUp = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!isDrawing) return;
 
@@ -192,14 +174,12 @@ export default function RegionOCR() {
 
     setIsDrawing(false);
 
-    // 최소 크기 확인
     if (region.width > 10 && region.height > 10) {
       setCurrentRegion(region);
       drawRegion(region);
     }
   };
 
-  // 터치 이벤트 핸들러 (모바일 지원)
   const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
     if (result) return;
 
@@ -264,7 +244,6 @@ export default function RegionOCR() {
     }
   };
 
-  // OCR 처리
   const processRegionOCR = async () => {
     if (!image || !currentRegion) return;
 
@@ -274,10 +253,8 @@ export default function RegionOCR() {
       const canvas = canvasRef.current;
       if (!canvas || !imageRef.current) return;
 
-      // 캔버스 스케일 계산
       const scale = imageRef.current.width / canvas.width;
 
-      // 실제 이미지 좌표로 변환
       const actualRegion = {
         x: Math.round(currentRegion.x * scale),
         y: Math.round(currentRegion.y * scale),
@@ -311,7 +288,6 @@ export default function RegionOCR() {
     }
   };
 
-  // TTS
   const speak = (text: string) => {
     if ("speechSynthesis" in window) {
       if (isSpeaking) {
@@ -332,25 +308,21 @@ export default function RegionOCR() {
     }
   };
 
-  // 초기화
   const reset = () => {
     setCurrentRegion(null);
     setResult(null);
     setIsSpeaking(false);
     speechSynthesis.cancel();
 
-    // 캔버스 초기화
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
     const drawInfo = imageDrawInfoRef.current;
     if (ctx && imageRef.current && canvas && drawInfo) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // 배경을 흰색으로 채우기
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // 저장된 정보로 이미지 다시 그리기
       ctx.drawImage(
         imageRef.current,
         drawInfo.offsetX,
@@ -365,6 +337,10 @@ export default function RegionOCR() {
     <PageLayout
       customButtons={[
         {
+          label: "도움말",
+          onClick: () => router.push("/guide"),
+        },
+        {
           label: "돌아가기",
           onClick: () => router.push("/"),
         },
@@ -372,21 +348,21 @@ export default function RegionOCR() {
     >
       {!imageUrl ? (
         // 이미지 업로드 화면
-        <div className="max-w-2xl mx-auto">
-          <div className="card text-center mb-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-              부분 읽기
-            </h2>
-            <p className="text-base md:text-lg text-gray-700 mb-6">
+        <div className="max-w-3xl mx-auto">
+          <div className="card bg-white text-center mb-8 shadow-sm">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              👆🏻 부분 읽기
+            </h1>
+            <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
               사진을 올리고, 읽을 부분을 손가락 또는 마우스로 표시해주세요
               <br />
               천천히 그어도 괜찮아요!
             </p>
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="bg-black hover:bg-gray-800 text-white font-bold px-8 py-4 rounded-xl transition-all inline-flex items-center gap-3"
+              className="bg-black hover:bg-gray-800 text-white font-bold px-10 py-6 rounded-2xl transition-all duration-300 inline-flex items-center gap-3 text-xl shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
             >
-              <Camera className="w-6 h-6" />
+              <Camera className="w-7 h-7" />
               사진 선택
             </button>
             <input
@@ -399,50 +375,50 @@ export default function RegionOCR() {
           </div>
 
           {/* 사용 가이드 */}
-          <div className="bg-blue-100 rounded-2xl p-6">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-2xl">📖</span>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900">
+          <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-2xl p-6 md:p-8 shadow-sm">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-3xl">📖</span>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
                 이렇게 사용하세요
-              </h3>
+              </h2>
             </div>
             <div className="space-y-4">
-              <div className="flex items-start gap-3 bg-white rounded-xl p-4">
-                <div className="bg-blue-300 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+              <div className="flex items-start gap-4 bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <div className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0 text-lg shadow-md">
                   1
                 </div>
                 <div>
-                  <p className="font-bold text-xl text-gray-900 mb-1">
+                  <p className="font-bold text-xl md:text-2xl text-gray-900 mb-2">
                     사진을 선택하세요
                   </p>
-                  <p className="text-base text-gray-600">
+                  <p className="text-base md:text-lg text-gray-600 leading-relaxed">
                     약봉투, 신문, 편지 등 읽고 싶은 문서를 찍거나 선택해주세요
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 bg-white rounded-xl p-4">
-                <div className="bg-blue-300 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+              <div className="flex items-start gap-4 bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <div className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0 text-lg shadow-md">
                   2
                 </div>
                 <div>
-                  <p className="font-bold text-xl text-gray-900 mb-1">
+                  <p className="font-bold text-xl md:text-2xl text-gray-900 mb-2">
                     읽을 부분을 표시하세요
                   </p>
-                  <p className="text-base text-gray-600">
+                  <p className="text-base md:text-lg text-gray-600 leading-relaxed">
                     손가락이나 마우스로 천천히 드래그해서 읽고 싶은 부분을
                     선택하세요
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 bg-white rounded-xl p-4">
-                <div className="bg-blue-300 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+              <div className="flex items-start gap-4 bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <div className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0 text-lg shadow-md">
                   3
                 </div>
                 <div>
-                  <p className="font-bold text-xl text-gray-900 mb-1">
+                  <p className="font-bold text-xl md:text-2xl text-gray-900 mb-2">
                     읽기 버튼을 누르세요
                   </p>
-                  <p className="text-base text-gray-600">
+                  <p className="text-base md:text-lg text-gray-600 leading-relaxed">
                     선택한 부분의 글자를 크게 보여드리고 소리로 읽어드려요
                   </p>
                 </div>
@@ -464,11 +440,11 @@ export default function RegionOCR() {
             }`}
           >
             <div className="card">
-              <h2 className="text-2xl md:text-2xl font-bold text-gray-900 mb-4 text-center">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 text-center">
                 {result
                   ? "선택한 부분"
                   : "읽을 부분을 손가락 또는 마우스로 표시해주세요"}
-              </h2>
+              </h3>
               <div className="flex justify-center mb-4">
                 <canvas
                   ref={canvasRef}
@@ -528,10 +504,10 @@ export default function RegionOCR() {
               <div className="card sticky top-24 h-fit">
                 {/* 헤더 */}
                 <div className="mb-4 pb-4 border-b-2 border-gray-200">
-                  <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-2">
+                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-2">
                     추출 결과
-                  </h1>
-                  <p className="text-base md:text-xl text-blue-800 font-medium text-center">
+                  </h2>
+                  <p className="text-lg md:text-xl text-gray-600 text-center">
                     글씨를 찾았어요!
                   </p>
                 </div>

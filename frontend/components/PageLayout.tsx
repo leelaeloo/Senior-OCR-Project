@@ -1,9 +1,5 @@
 "use client";
 
-/**
- * 모든 페이지에서 사용하는 공통 레이아웃
- */
-
 import { useRouter } from "next/navigation";
 import Header from "./Header";
 
@@ -27,7 +23,6 @@ export default function PageLayout({
 }: PageLayoutProps) {
   const router = useRouter();
 
-  // 기본 버튼 설정
   const buttons = customButtons || [];
 
   return (
@@ -36,13 +31,11 @@ export default function PageLayout({
         transparentBg ? "bg-transparent" : "bg-white"
       }`}
     >
-      {/* 고정된 헤더 */}
       <Header
         showDefaultButtons={showDefaultButtons}
         buttons={buttons.length > 0 ? buttons : undefined}
       />
 
-      {/* 메인 컨텐츠 영역 */}
       <main
         className={`mx-auto px-4 py-8 ${
           maxWidth === "4xl" ? "max-w-4xl" : "max-w-7xl"

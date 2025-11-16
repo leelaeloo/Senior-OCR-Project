@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -8,11 +8,19 @@ const chironGoRound = localFont({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: "cover",
+  themeColor: "#fbbf24",
+};
+
 export const metadata: Metadata = {
   title: "읽어드림",
   description: "어르신을 위한 똑똑한 안경",
   manifest: "/manifest.json",
-  themeColor: "#fbbf24",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",

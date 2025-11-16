@@ -1,7 +1,3 @@
-/**
- * OCR 결과 표시 카드 컴포넌트
- */
-
 import { OCRResult } from "@/types";
 
 interface OCRResultCardProps {
@@ -21,7 +17,6 @@ export default function OCRResultCard({
 }: OCRResultCardProps) {
   return (
     <div className="card sticky top-24 h-fit">
-      {/* 헤더 */}
       <div className="mb-2 pb-2 border-b border-gray-200">
         <h1 className="text-base md:text-lg font-bold text-gray-900 text-center mb-1">
           추출 결과
@@ -31,14 +26,12 @@ export default function OCRResultCard({
         </p>
       </div>
 
-      {/* 결과 텍스트 박스 */}
       <div className="bg-yellow-100 rounded-lg p-3 mb-2 max-h-[50vh] overflow-auto">
         <p className="text-sm leading-relaxed ocr-text text-gray-900 whitespace-pre-wrap">
           {result.text || "글씨를 찾을 수 없어요"}
         </p>
       </div>
 
-      {/* 상세 정보 */}
       <div className="bg-yellow-50 rounded-lg p-2 mb-2 space-y-1">
         <div className="flex justify-between">
           <span className="text-gray-700 text-[11px] font-medium">
@@ -56,7 +49,6 @@ export default function OCRResultCard({
         </div>
       </div>
 
-      {/* TTS 버튼 */}
       <button
         onClick={onSpeak}
         className={`w-full py-2 rounded-lg font-bold text-xs mb-2 transition-all ${
@@ -68,7 +60,6 @@ export default function OCRResultCard({
         {isSpeaking ? "⏹️ 소리 멈추기" : "🔊 소리로 읽어주기"}
       </button>
 
-      {/* 하단 버튼들 */}
       <div className="grid grid-cols-2 gap-1.5">
         <button
           onClick={onReset}

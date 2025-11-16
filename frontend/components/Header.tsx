@@ -1,9 +1,5 @@
 "use client";
 
-/**
- * 공통 헤더 컴포넌트
- */
-
 import { useRouter } from "next/navigation";
 import Logo from "./Logo";
 
@@ -23,7 +19,6 @@ export default function Header({
 }: HeaderProps) {
   const router = useRouter();
 
-  // 기본 버튼 (메인 페이지용)
   const defaultButtons: HeaderButton[] = [
     {
       label: "도움말",
@@ -38,20 +33,33 @@ export default function Header({
   const displayButtons = showDefaultButtons ? defaultButtons : buttons || [];
 
   return (
-    <header className="bg-white sticky top-0 z-50 border-b border-gray-200 h-20">
-      <div className="max-w-7xl mx-auto px-4 h-full">
-        <div className="flex items-center justify-between h-full">
-          <div className="flex items-center">
+    <header className="bg-white sticky top-0 z-50 border-b border-gray-200 shadow-sm" style={{ width: '100vw', position: 'sticky', left: 0, right: 0 }}>
+      <div style={{
+        maxWidth: '1280px',
+        margin: '0 auto',
+        paddingLeft: '1rem',
+        paddingRight: '1rem',
+        width: '100%',
+        boxSizing: 'border-box'
+      }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          height: '80px'
+        }}>
+          <div style={{ width: 'clamp(160px, 40vw, 280px)', flexShrink: 0 }}>
             <div className="cursor-pointer" onClick={() => router.push("/")}>
               <Logo />
             </div>
           </div>
-          <div className="flex items-center gap-2">
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0 }}>
             {displayButtons.map((button, index) => (
               <button
                 key={index}
                 onClick={button.onClick}
-                className="bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold px-4 py-2 md:px-6 md:py-3 rounded-xl transition-all hover-scale-sm"
+                className="hover:bg-gray-200 text-gray-900 font-bold px-3 py-2 md:px-6 md:py-3 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 whitespace-nowrap text-sm md:text-base"
               >
                 {button.label}
               </button>

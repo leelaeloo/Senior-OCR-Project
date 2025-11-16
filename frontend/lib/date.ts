@@ -1,12 +1,3 @@
-/**
- * 날짜 포맷팅 유틸리티
- */
-
-/**
- * 상대 날짜 포맷 (예: "오늘", "어제", "3일 전")
- * @param dateString ISO 날짜 문자열
- * @returns 상대 날짜 문자열
- */
 export const formatRelativeDate = (dateString: string): string => {
   const date = new Date(dateString);
   const now = new Date();
@@ -21,11 +12,6 @@ export const formatRelativeDate = (dateString: string): string => {
   return `${Math.floor(diffDays / 365)}년 전`;
 };
 
-/**
- * 절대 날짜 포맷 (예: "2024-01-15 14:30")
- * @param dateString ISO 날짜 문자열
- * @returns 포맷된 날짜 문자열
- */
 export const formatAbsoluteDate = (dateString: string): string => {
   const date = new Date(dateString);
   const year = date.getFullYear();
