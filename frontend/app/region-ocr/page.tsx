@@ -370,214 +370,215 @@ export default function RegionOCR() {
         },
       ]}
     >
-        {!imageUrl ? (
-          // 이미지 업로드 화면
-          <div className="max-w-2xl mx-auto">
-            <div className="card text-center mb-6">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                부분 읽기
-              </h2>
-              <p className="text-base md:text-lg text-gray-600 mb-6">
-                사진을 올리고, 읽을 부분을 손가락 또는 마우스로 표시해주세요!
-                <br />
-                천천히 그어도 괜찮아요!
-              </p>
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                className="bg-black hover:bg-gray-800 text-white font-bold px-8 py-4 rounded-xl transition-all inline-flex items-center gap-3"
-              >
-                <Camera className="w-6 h-6" />
-                사진 선택
-              </button>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                className="hidden"
-              />
-            </div>
+      {!imageUrl ? (
+        // 이미지 업로드 화면
+        <div className="max-w-2xl mx-auto">
+          <div className="card text-center mb-6">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+              부분 읽기
+            </h2>
+            <p className="text-base md:text-lg text-gray-600 mb-6">
+              사진을 올리고, 읽을 부분을 손가락 또는 마우스로 표시해주세요!
+              <br />
+              천천히 그어도 괜찮아요!
+            </p>
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              className="bg-black hover:bg-gray-800 text-white font-bold px-8 py-4 rounded-xl transition-all inline-flex items-center gap-3"
+            >
+              <Camera className="w-6 h-6" />
+              사진 선택
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
+          </div>
 
-            {/* 사용 가이드 */}
-            <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 border-2 border-purple-200">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-2xl">📖</span>
-                <h3 className="text-xl md:text-2xl font-bold text-gray-900">
-                  이렇게 사용하세요
-                </h3>
+          {/* 사용 가이드 */}
+          <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 border-2 border-purple-200">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-2xl">📖</span>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900">
+                이렇게 사용하세요
+              </h3>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3 bg-white rounded-xl p-4">
+                <div className="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+                  1
+                </div>
+                <div>
+                  <p className="font-bold text-gray-900 mb-1">
+                    사진을 선택하세요
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    약봉투, 신문, 편지 등 읽고 싶은 문서를 찍거나 선택해주세요
+                  </p>
+                </div>
               </div>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3 bg-white rounded-xl p-4">
-                  <div className="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
-                    1
-                  </div>
-                  <div>
-                    <p className="font-bold text-gray-900 mb-1">
-                      사진을 선택하세요
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      약봉투, 신문, 편지 등 읽고 싶은 문서를 찍거나 선택해주세요
-                    </p>
-                  </div>
+              <div className="flex items-start gap-3 bg-white rounded-xl p-4">
+                <div className="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+                  2
                 </div>
-                <div className="flex items-start gap-3 bg-white rounded-xl p-4">
-                  <div className="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
-                    2
-                  </div>
-                  <div>
-                    <p className="font-bold text-gray-900 mb-1">
-                      읽을 부분을 표시하세요
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      손가락이나 마우스로 천천히 드래그해서 읽고 싶은 부분을 선택하세요
-                    </p>
-                  </div>
+                <div>
+                  <p className="font-bold text-gray-900 mb-1">
+                    읽을 부분을 표시하세요
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    손가락이나 마우스로 천천히 드래그해서 읽고 싶은 부분을
+                    선택하세요
+                  </p>
                 </div>
-                <div className="flex items-start gap-3 bg-white rounded-xl p-4">
-                  <div className="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
-                    3
-                  </div>
-                  <div>
-                    <p className="font-bold text-gray-900 mb-1">
-                      읽기 버튼을 누르세요
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      선택한 부분의 글자를 크게 보여드리고 소리로 읽어드려요
-                    </p>
-                  </div>
+              </div>
+              <div className="flex items-start gap-3 bg-white rounded-xl p-4">
+                <div className="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+                  3
+                </div>
+                <div>
+                  <p className="font-bold text-gray-900 mb-1">
+                    읽기 버튼을 누르세요
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    선택한 부분의 글자를 크게 보여드리고 소리로 읽어드려요
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-        ) : (
-          // 영역 선택 및 결과 화면
+        </div>
+      ) : (
+        // 영역 선택 및 결과 화면
+        <div
+          className={`grid gap-8 transition-all duration-500 ${
+            result ? "md:grid-cols-2" : "md:grid-cols-1"
+          }`}
+        >
+          {/* 왼쪽: 캔버스 영역 */}
           <div
-            className={`grid gap-8 transition-all duration-500 ${
-              result ? "md:grid-cols-2" : "md:grid-cols-1"
+            className={`transition-all duration-500 ${
+              result ? "" : "max-w-2xl mx-auto"
             }`}
           >
-            {/* 왼쪽: 캔버스 영역 */}
-            <div
-              className={`transition-all duration-500 ${
-                result ? "" : "max-w-2xl mx-auto"
-              }`}
-            >
-              <div className="card">
-                <h2 className="text-2xl md:text-2xl font-bold text-gray-900 mb-4 text-center">
-                  {result
-                    ? "선택한 부분"
-                    : "읽을 부분을 손가락 또는 마우스로 표시해주세요"}
-                </h2>
-                <div className="flex justify-center mb-4">
-                  <canvas
-                    ref={canvasRef}
-                    onMouseDown={handleMouseDown}
-                    onMouseMove={handleMouseMove}
-                    onMouseUp={handleMouseUp}
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
-                    className="border-2 border-gray-300 rounded-lg cursor-crosshair"
-                    style={{ touchAction: "none" }}
-                  />
-                </div>
+            <div className="card">
+              <h2 className="text-2xl md:text-2xl font-bold text-gray-900 mb-4 text-center">
+                {result
+                  ? "선택한 부분"
+                  : "읽을 부분을 손가락 또는 마우스로 표시해주세요"}
+              </h2>
+              <div className="flex justify-center mb-4">
+                <canvas
+                  ref={canvasRef}
+                  onMouseDown={handleMouseDown}
+                  onMouseMove={handleMouseMove}
+                  onMouseUp={handleMouseUp}
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
+                  className="border-2 border-gray-300 rounded-lg cursor-crosshair"
+                  style={{ touchAction: "none" }}
+                />
+              </div>
 
-                {/* 버튼 */}
-                <div className="flex gap-3 justify-center flex-wrap">
-                  {currentRegion && !result && (
-                    <button
-                      onClick={processRegionOCR}
-                      disabled={isProcessing}
-                      className="bg-black hover:bg-gray-800 disabled:bg-gray-300 text-white font-bold px-6 py-3 rounded-xl transition-all"
-                    >
-                      {isProcessing ? "처리 중..." : "선택 부분 읽기"}
-                    </button>
-                  )}
-
-                  {result && (
-                    <button
-                      onClick={reset}
-                      className="bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold px-5 py-3 rounded-xl transition-all flex items-center gap-2"
-                    >
-                      <Trash2 className="w-5 h-5" />
-                      다시 선택
-                    </button>
-                  )}
-
+              {/* 버튼 */}
+              <div className="flex gap-3 justify-center flex-wrap">
+                {currentRegion && !result && (
                   <button
-                    onClick={() => {
-                      setImage(null);
-                      setImageUrl(null);
-                      setResult(null);
-                      setCurrentRegion(null);
-                      setIsSpeaking(false);
-                      speechSynthesis.cancel();
-                    }}
-                    className="bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold px-5 py-3 rounded-xl transition-all"
+                    onClick={processRegionOCR}
+                    disabled={isProcessing}
+                    className="bg-black hover:bg-gray-800 disabled:bg-gray-300 text-white font-bold px-6 py-3 rounded-xl transition-all"
                   >
-                    새 사진
+                    {isProcessing ? "처리 중..." : "선택 부분 읽기"}
                   </button>
-                </div>
+                )}
+
+                {result && (
+                  <button
+                    onClick={reset}
+                    className="bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold px-5 py-3 rounded-xl transition-all flex items-center gap-2"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                    다시 선택
+                  </button>
+                )}
+
+                <button
+                  onClick={() => {
+                    setImage(null);
+                    setImageUrl(null);
+                    setResult(null);
+                    setCurrentRegion(null);
+                    setIsSpeaking(false);
+                    speechSynthesis.cancel();
+                  }}
+                  className="bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold px-5 py-3 rounded-xl transition-all"
+                >
+                  새 사진
+                </button>
               </div>
             </div>
-
-            {/* 오른쪽: 결과 영역 - 결과가 있을 때만 표시 */}
-            {result && (
-              <div className="animate-slide-in-right">
-                <div className="card sticky top-24 h-fit">
-                  {/* 헤더 */}
-                  <div className="mb-4 pb-4 border-b-2 border-gray-200">
-                    <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-2">
-                      추출 결과
-                    </h1>
-                    <p className="text-base md:text-lg text-gray-700 font-medium text-center">
-                      ✅ 글씨를 찾았어요!
-                    </p>
-                  </div>
-
-                  {/* 결과 텍스트 박스 */}
-                  <div className="bg-yellow-100 rounded-2xl p-5 mb-4 max-h-[50vh] overflow-auto">
-                    <p className="text-lg leading-relaxed ocr-text text-gray-900 whitespace-pre-wrap">
-                      {result.text || "텍스트를 찾을 수 없습니다"}
-                    </p>
-                  </div>
-
-                  {/* 상세 정보 */}
-                  <div className="bg-yellow-50 rounded-2xl p-4 mb-4 space-y-2">
-                    <div className="flex justify-between py-1">
-                      <span className="text-gray-700 text-sm font-medium">
-                        글자 개수
-                      </span>
-                      <span className="font-bold text-gray-900 text-base">
-                        {result.word_count}개
-                      </span>
-                    </div>
-                    <div className="flex justify-between py-1">
-                      <span className="text-gray-700 text-sm font-medium">
-                        정확도
-                      </span>
-                      <span className="font-bold text-gray-900 text-base">
-                        {result.confidence}%
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* TTS 버튼 */}
-                  <button
-                    onClick={() => speak(result.text)}
-                    className={`w-full py-4 rounded-xl font-bold text-base transition-all ${
-                      isSpeaking
-                        ? "bg-red-500 hover:bg-red-600 text-white"
-                        : "bg-black hover:bg-gray-800 text-white"
-                    }`}
-                  >
-                    {isSpeaking ? "⏹️ 소리 멈추기" : "🔊 소리로 읽어주기"}
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
-        )}
+
+          {/* 오른쪽: 결과 영역 - 결과가 있을 때만 표시 */}
+          {result && (
+            <div className="animate-slide-in-right">
+              <div className="card sticky top-24 h-fit">
+                {/* 헤더 */}
+                <div className="mb-4 pb-4 border-b-2 border-gray-200">
+                  <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-2">
+                    추출 결과
+                  </h1>
+                  <p className="text-base md:text-lg text-gray-700 font-medium text-center">
+                    ✅ 글씨를 찾았어요!
+                  </p>
+                </div>
+
+                {/* 결과 텍스트 박스 */}
+                <div className="bg-yellow-100 rounded-2xl p-5 mb-4 max-h-[50vh] overflow-auto">
+                  <p className="text-lg leading-relaxed ocr-text text-gray-900 whitespace-pre-wrap">
+                    {result.text || "텍스트를 찾을 수 없습니다"}
+                  </p>
+                </div>
+
+                {/* 상세 정보 */}
+                <div className="bg-yellow-50 rounded-2xl p-4 mb-4 space-y-2">
+                  <div className="flex justify-between py-1">
+                    <span className="text-gray-700 text-sm font-medium">
+                      글자 개수
+                    </span>
+                    <span className="font-bold text-gray-900 text-base">
+                      {result.word_count}개
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-1">
+                    <span className="text-gray-700 text-sm font-medium">
+                      정확도
+                    </span>
+                    <span className="font-bold text-gray-900 text-base">
+                      {result.confidence}%
+                    </span>
+                  </div>
+                </div>
+
+                {/* TTS 버튼 */}
+                <button
+                  onClick={() => speak(result.text)}
+                  className={`w-full py-4 rounded-xl font-bold text-base transition-all ${
+                    isSpeaking
+                      ? "bg-red-500 hover:bg-red-600 text-white"
+                      : "bg-black hover:bg-gray-800 text-white"
+                  }`}
+                >
+                  {isSpeaking ? "⏹️ 소리 멈추기" : "🔊 소리로 읽어주기"}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </PageLayout>
   );
 }

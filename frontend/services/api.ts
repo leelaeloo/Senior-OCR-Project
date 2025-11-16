@@ -24,11 +24,15 @@ export const ocrAPI = {
     formData.append("file", file);
     formData.append("language", language);
 
-    const response = await client.post<APIResponse<OCRResult>>("/ocr", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const response = await client.post<APIResponse<OCRResult>>(
+      "/ocr",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
     return response.data;
   },
@@ -84,7 +88,9 @@ export const historyAPI = {
    * 히스토리 상세 조회
    */
   getDetail: async (id: number) => {
-    const response = await client.get<APIResponse<HistoryItem>>(`/history/${id}`);
+    const response = await client.get<APIResponse<HistoryItem>>(
+      `/history/${id}`
+    );
     return response.data;
   },
 
