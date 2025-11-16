@@ -27,7 +27,7 @@ export default function OCRResultCard({
           추출 결과
         </h1>
         <p className="text-xs md:text-sm text-gray-700 font-medium text-center">
-          ✅ 글씨를 찾았어요!
+          글씨를 찾았어요!
         </p>
       </div>
 

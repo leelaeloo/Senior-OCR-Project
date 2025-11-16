@@ -1,5 +1,5 @@
 /**
- * 로딩 스피너 컴포넌트 - 개선된 버전
+ * 로딩 스피너 컴포넌트
  */
 
 interface LoadingSpinnerProps {
@@ -15,8 +15,8 @@ export default function LoadingSpinner({
     <div className="text-center py-12 animate-fade-in">
       {/* 향상된 스피너 */}
       <div className="relative inline-block mb-6">
-        <div className="animate-spin rounded-full h-16 w-16 border-4 border-yellow-200"></div>
-        <div className="absolute top-0 left-0 animate-spin rounded-full h-16 w-16 border-t-4 border-yellow-400"></div>
+        <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-400"></div>
+        <div className="absolute top-0 left-0 animate-spin rounded-full h-16 w-16 border-t-4 border-gray-600"></div>
         <div className="absolute top-0 left-0 rounded-full h-16 w-16 shadow-glow"></div>
       </div>
 
@@ -29,15 +29,15 @@ export default function LoadingSpinner({
       {/* 점 애니메이션 */}
       <div className="flex justify-center gap-2 mt-4">
         <div
-          className="w-2 h-2 bg-yellow-400 rounded-full animate-bounce"
+          className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
           style={{ animationDelay: "0ms" }}
         ></div>
         <div
-          className="w-2 h-2 bg-yellow-400 rounded-full animate-bounce"
+          className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
           style={{ animationDelay: "150ms" }}
         ></div>
         <div
-          className="w-2 h-2 bg-yellow-400 rounded-full animate-bounce"
+          className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
           style={{ animationDelay: "300ms" }}
         ></div>
       </div>

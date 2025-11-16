@@ -6,7 +6,6 @@ import { Trash2, Volume2 } from "lucide-react";
 import PageLayout from "@/components/PageLayout";
 import axios, { AxiosError } from "axios";
 
-// ==================== 상수 ====================
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL ||
   (typeof window !== "undefined"
@@ -21,7 +20,6 @@ const SPEECH_CONFIG = {
 
 const HISTORY_LIMIT = 50;
 
-// ==================== 타입 정의 ====================
 interface HistoryItem {
   id: number;
   task_id: string;
@@ -37,7 +35,6 @@ interface APIResponse<T> {
   data: T;
 }
 
-// ==================== 메인 컴포넌트 ====================
 export default function HistoryPage() {
   const router = useRouter();
   const [history, setHistory] = useState<HistoryItem[]>([]);
@@ -48,7 +45,6 @@ export default function HistoryPage() {
   const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
 
-  // ==================== 데이터 로딩 ====================
   useEffect(() => {
     fetchHistory();
   }, []);
@@ -83,7 +79,7 @@ export default function HistoryPage() {
     }
   };
 
-  // ==================== 이벤트 핸들러 ====================
+  // 이벤트 핸들러
   const handleDeleteClick = (id: number) => {
     setDeleteConfirm(id);
     setDeleteError(null);
@@ -151,7 +147,7 @@ export default function HistoryPage() {
     }
   };
 
-  // ==================== 유틸리티 함수 ====================
+  // 유틸리티 함수
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
     const now = new Date();
@@ -169,7 +165,7 @@ export default function HistoryPage() {
     });
   };
 
-  // ==================== 렌더링 ====================
+  // 렌더링
   return (
     <PageLayout
       maxWidth="4xl"
@@ -180,7 +176,7 @@ export default function HistoryPage() {
         },
       ]}
     >
-      <div className="card md: border border-gray-200 rounded-3xl p-6">
+      <div className="card md:bg-gray-100 rounded-3xl p-6">
         {/* 헤더 */}
         <div className="mb- pb-6 border-b border-gray-300">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-4">
@@ -193,28 +189,28 @@ export default function HistoryPage() {
 
         {/* 통계 섹션 */}
         {!isLoading && !error && history.length > 0 && (
-          <div className="mb-6 bg-gradient-to-r from-yellow-50 to-amber-50 rounded-2xl p-5 border-2 border-yellow-200">
+          <div className="mb-6 bg-white rounded-2xl p-5 ">
             <div className="flex items-center justify-center gap-6 flex-wrap">
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-yellow-600 mb-1">
+                <div className="text-3xl md:text-4xl font-bold text-gray-700 mb-1">
                   {history.length}
                 </div>
                 <div className="text-sm md:text-base text-gray-700 font-medium">
-                  📄 읽은 문서
+                  읽은 문서
                 </div>
               </div>
-              <div className="hidden sm:block w-px h-12 bg-yellow-300"></div>
+              <div className="hidden sm:block w-px h-12 bg-gray-300"></div>
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-yellow-600 mb-1">
+                <div className="text-3xl md:text-4xl font-bold text-gray-700 mb-1">
                   {history.reduce((sum, item) => sum + item.word_count, 0)}
                 </div>
                 <div className="text-sm md:text-base text-gray-700 font-medium">
-                  ✏️ 읽은 글자
+                  읽은 글자
                 </div>
               </div>
-              <div className="hidden sm:block w-px h-12 bg-yellow-300"></div>
+              <div className="hidden sm:block w-px h-12 bg-gray-300"></div>
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-yellow-600 mb-1">
+                <div className="text-3xl md:text-4xl font-bold text-gray-700 mb-1">
                   {Math.round(
                     history.reduce((sum, item) => sum + item.confidence, 0) /
                       history.length
@@ -222,7 +218,7 @@ export default function HistoryPage() {
                   %
                 </div>
                 <div className="text-sm md:text-base text-gray-700 font-medium">
-                  🎯 평균 정확도
+                  평균 정확도
                 </div>
               </div>
             </div>
@@ -234,7 +230,7 @@ export default function HistoryPage() {
           <div className="text-center py-12">
             <div
               className="inline-block animate-spin rounded-full
-                h-12 w-12 border-b-4 border-yellow-300 mb-4"
+                h-12 w-12 border-b-4 border-black mb-4"
             ></div>
             <p className="text-gray-700 mt-4">기록 불러오는 중...</p>
           </div>
@@ -255,7 +251,7 @@ export default function HistoryPage() {
 
         {/* 삭제 확인 모달 */}
         {deleteConfirm && (
-          <div className="mb-4 bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded">
+          <div className="mb-4 bg-gray-100 border-l-4 border-gray-300 p-4 rounded">
             <p className="text-gray-900 font-medium mb-3">
               이 기록을 삭제하시겠습니까?
             </p>
@@ -291,8 +287,8 @@ export default function HistoryPage() {
                 </p>
                 <button
                   onClick={() => router.push("/")}
-                  className="bg-yellow-100 hover:bg-yellow-200 text-gray-900
-                      font-bold py-4 px-8 rounded-3xl transition-all shadow-md"
+                  className="bg-black hover:bg-gray-800 text-white
+                       font-bold px-6 py-6 rounded-xl transition-all mb-5 text-xl hover-scale-sm"
                 >
                   첫 촬영 시작하기
                 </button>
@@ -302,11 +298,11 @@ export default function HistoryPage() {
                 {history.map((item) => (
                   <div
                     key={item.id}
-                    className="bg-yellow-100 rounded-3xl p-5
-                        hover:bg-yellow-200 transition-all shadow-md"
+                    className="bg-white rounded-3xl p-5
+                        hover:bg-gray-200 transition-all"
                   >
                     {/* 날짜 */}
-                    <div className="text-sm text-gray-700 font-medium mb-3">
+                    <div className="text-lg text-gray-900 font-medium mb-3">
                       📅 {formatDate(item.created_at)}
                     </div>
 
@@ -316,7 +312,7 @@ export default function HistoryPage() {
                     </p>
 
                     {/* 정보 */}
-                    <div className="flex gap-4 text-sm text-gray-700 mb-4">
+                    <div className="flex gap-4 text-base text-gray-900 mb-4">
                       <span className="font-medium">
                         글자 {item.word_count}개
                       </span>
@@ -334,7 +330,7 @@ export default function HistoryPage() {
                             flex-1 py-3 rounded-3xl font-bold transition-all                             ${
                               isSpeaking && speakingId === item.id
                                 ? "bg-red-500 hover:bg-red-600 text-white"
-                                : "bg-yellow-400 hover:bg-yellow-500 text-gray-900"
+                                : "bg-black hover:bg-gray-800 text-white"
                             }
                             ${
                               deleteConfirm === item.id

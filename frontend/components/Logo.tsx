@@ -1,6 +1,5 @@
 /**
  * 읽어드림 로고 컴포넌트
- * 모든 페이지에서 일관된 로고 표시
  */
 
 export default function Logo() {
@@ -15,10 +14,7 @@ export default function Logo() {
       style={{ display: "block", verticalAlign: "middle" }}
     >
       {/* 그림 로고: 책 왼쪽 페이지 */}
-      <path
-        d="M15 35 L15 135 L73 135 L78 127 L78 35 L73 30 Z"
-        fill="#FDB91A"
-      />
+      <path d="M15 35 L15 135 L73 135 L78 127 L78 35 L73 30 Z" fill="#FDB91A" />
 
       {/* 그림 로고: 책 오른쪽 페이지 */}
       <path

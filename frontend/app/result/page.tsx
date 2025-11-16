@@ -96,7 +96,7 @@ export default function ResultPage() {
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
             사진 찍기
           </h2>
-          <p className="text-base md:text-lg text-gray-600 mb-6">
+          <p className="text-base md:text-xl text-gray-800 mb-6">
             읽고 싶은 글자가 있는 문서를 사진으로 찍어보세요!
             <br />
             사진 속 글자를 크게 보여드리고 소리로 읽어드려요!
@@ -133,7 +133,7 @@ export default function ResultPage() {
 
         {/* 사용 가이드 - 사진 업로드 전에만 표시 */}
         {!imageUrl && (
-          <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 border-2 border-purple-200">
+          <div className="bg-blue-100 rounded-2xl p-6">
             <div className="flex items-center gap-3 mb-4">
               <span className="text-2xl">📖</span>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900">
@@ -142,38 +142,40 @@ export default function ResultPage() {
             </div>
             <div className="space-y-4">
               <div className="flex items-start gap-3 bg-white rounded-xl p-4">
-                <div className="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+                <div className="bg-blue-300 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
                   1
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900 mb-1">
+                  <p className="font-bold text-xl text-gray-900 mb-1">
                     사진을 선택하세요
                   </p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-base text-gray-600">
                     약봉투, 신문, 편지 등 읽고 싶은 문서를 찍거나 선택해주세요
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-3 bg-white rounded-xl p-4">
-                <div className="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+                <div className="bg-blue-300 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
                   2
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900 mb-1">
+                  <p className="font-bold text-xl text-gray-900 mb-1">
                     글자를 확인하세요
                   </p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-base text-gray-600">
                     사진 속 글자를 크게 보여드려요
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-3 bg-white rounded-xl p-4">
-                <div className="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+                <div className="bg-blue-300 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
                   3
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900 mb-1">소리로 듣기</p>
-                  <p className="text-sm text-gray-600">
+                  <p className="font-bold text-xl text-gray-900 mb-1">
+                    소리로 듣기
+                  </p>
+                  <p className="text-base text-gray-600">
                     버튼만 누르면 소리로 읽어드려요
                   </p>
                 </div>
@@ -183,7 +185,7 @@ export default function ResultPage() {
         )}
       </div>
 
-      {/* 결과 섹션 (이미지 업로드 후 표시) - 2단 레이아웃 */}
+      {/* 결과 섹션 (이미지 업로드 후 표시) */}
       {imageUrl && result && (
         <div id="result-section" className="grid md:grid-cols-2 gap-6 mt-8">
           {/* 왼쪽: 원본 이미지 */}
@@ -206,36 +208,16 @@ export default function ResultPage() {
               <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-2">
                 추출 결과
               </h1>
-              <p className="text-base md:text-lg text-gray-700 font-medium text-center">
-                ✅ 글씨를 찾았어요!
+              <p className="text-base md:text-xl text-blue-800 font-medium text-center">
+                글씨를 찾았어요!
               </p>
             </div>
 
             {/* 결과 텍스트 박스 (스크롤 가능) */}
-            <div className="bg-yellow-100 rounded-2xl p-5 mb-4 max-h-[40vh] overflow-y-auto">
-              <p className="text-lg leading-relaxed text-gray-900 whitespace-pre-wrap">
+            <div className="bg-gray-100 rounded-2xl p-5 mb-4 max-h-[60vh] overflow-y-auto">
+              <p className="text-base leading-relaxed text-black whitespace-pre-wrap">
                 {result.text || "글씨를 찾을 수 없어요"}
               </p>
-            </div>
-
-            {/* 상세 정보 */}
-            <div className="bg-yellow-50 rounded-2xl p-4 mb-4 space-y-2">
-              <div className="flex justify-between py-1">
-                <span className="text-gray-700 text-sm font-medium">
-                  글자 개수
-                </span>
-                <span className="font-bold text-gray-900 text-base">
-                  {result.word_count}개
-                </span>
-              </div>
-              <div className="flex justify-between py-1">
-                <span className="text-gray-700 text-sm font-medium">
-                  정확도
-                </span>
-                <span className="font-bold text-gray-900 text-base">
-                  {result.confidence}%
-                </span>
-              </div>
             </div>
 
             {/* TTS 버튼 */}

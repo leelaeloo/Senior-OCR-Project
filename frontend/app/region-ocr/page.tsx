@@ -399,7 +399,7 @@ export default function RegionOCR() {
           </div>
 
           {/* 사용 가이드 */}
-          <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 border-2 border-purple-200">
+          <div className="bg-blue-100 rounded-2xl p-6">
             <div className="flex items-center gap-3 mb-4">
               <span className="text-2xl">📖</span>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900">
@@ -408,41 +408,41 @@ export default function RegionOCR() {
             </div>
             <div className="space-y-4">
               <div className="flex items-start gap-3 bg-white rounded-xl p-4">
-                <div className="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+                <div className="bg-blue-300 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
                   1
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900 mb-1">
+                  <p className="font-bold text-xl text-gray-900 mb-1">
                     사진을 선택하세요
                   </p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-base text-gray-600">
                     약봉투, 신문, 편지 등 읽고 싶은 문서를 찍거나 선택해주세요
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-3 bg-white rounded-xl p-4">
-                <div className="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+                <div className="bg-blue-300 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
                   2
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900 mb-1">
+                  <p className="font-bold text-xl text-gray-900 mb-1">
                     읽을 부분을 표시하세요
                   </p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-base text-gray-600">
                     손가락이나 마우스로 천천히 드래그해서 읽고 싶은 부분을
                     선택하세요
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-3 bg-white rounded-xl p-4">
-                <div className="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+                <div className="bg-blue-300 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
                   3
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900 mb-1">
+                  <p className="font-bold text-xl text-gray-900 mb-1">
                     읽기 버튼을 누르세요
                   </p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-base text-gray-600">
                     선택한 부분의 글자를 크게 보여드리고 소리로 읽어드려요
                   </p>
                 </div>
@@ -531,7 +531,7 @@ export default function RegionOCR() {
                   <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-2">
                     추출 결과
                   </h1>
-                  <p className="text-base md:text-lg text-gray-700 font-medium text-center">
+                  <p className="text-base md:text-2xl text-gray-700 font-medium text-center">
                     ✅ 글씨를 찾았어요!
                   </p>
                 </div>

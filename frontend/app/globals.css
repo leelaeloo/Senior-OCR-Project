@@ -13,17 +13,16 @@
   --color-button: #fee500;
   --color-button-hover: #fada0a;
 
-  /* 카카오 색상 변수 */
-  --color-primary: #fee500; /* 카카오 옐로우 */
-  --color-primary-hover: #fada0a; /* 카카오 옐로우 호버 */
-  --color-secondary: #3c1e1e; /* 카카오 브라운 */
-  --color-secondary-hover: #5a2e2e; /* 카카오 브라운 호버 */
-  --color-success: #34d399; /* green-400 */
-  --color-success-hover: #10b981; /* green-500 */
-  --color-danger: #f87171; /* red-400 */
-  --color-danger-hover: #ef4444; /* red-500 */
-  --color-info: #a78bfa; /* purple-400 */
-  --color-info-hover: #8b5cf6; /* purple-500 */
+  --color-primary: #fee500;
+  --color-primary-hover: #fada0a;
+  --color-secondary: #3c1e1e;
+  --color-secondary-hover: #5a2e2e;
+  --color-success: #34d399;
+  --color-success-hover: #10b981;
+  --color-danger: #f87171;
+  --color-danger-hover: #ef4444;
+  --color-info: #a78bfa;
+  --color-info-hover: #8b5cf6;
 }
 
 /* 전역 설정 */
@@ -32,7 +31,8 @@
 }
 
 body {
-  font-family: var(--font-chiron-go-round), "Chiron Go Round TC", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-chiron-go-round), "Chiron Go Round TC", system-ui,
+    -apple-system, sans-serif;
   font-size: 16px;
   line-height: 1.6;
   background: #ffffff;
@@ -238,7 +238,7 @@ body {
   animation: wiggle 0.5s ease-in-out;
 }
 
-/* 버튼 효과 개선 */
+/* 버튼 효과 */
 .btn-enhanced {
   position: relative;
   overflow: hidden;
