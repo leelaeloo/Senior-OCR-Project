@@ -10,11 +10,11 @@
 
 ### PC 웹 메인 화면
 
-<img src="./screenshots/main-1116.png" width="500">
+<img src="./screenshots/main.png" width="500">
 
 ### PC 웹 가이드 화면
 
-<img src="./screenshots/guide.png" width="500">
+<img src="./screenshots/guide_11-16.png" width="500">
 
 ### PWA 앱 설치 화면
 
