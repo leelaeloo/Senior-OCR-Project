@@ -57,7 +57,7 @@ def extract_text(image_bytes: bytes, lang: str = "kor+eng") -> Dict:
         # 신뢰도 계산
         confidences = [result[2] for result in sorted_results]
         avg_confidence = (
-            sum(confidences) / len(confidences) * 100 if confidences else 0
+            float(sum(confidences) / len(confidences) * 100) if confidences else 0.0
         )
 
         # 단어 정보
@@ -65,14 +65,14 @@ def extract_text(image_bytes: bytes, lang: str = "kor+eng") -> Dict:
         for bbox, text, conf in sorted_results:
             words.append({
                 "text": text,
-                "confidence": round(conf * 100, 2),  # 0-100 범위로 변환
-                "bbox": bbox  # 바운딩 박스 정보 추가
+                "confidence": round(float(conf * 100), 2),  # 0-100 범위로 변환
+                "bbox": [[int(x), int(y)] for x, y in bbox]  # numpy array를 일반 list로 변환
             })
 
         return {
             "text": full_text.strip(),
             "confidence": round(avg_confidence, 2),
-            "word_count": len(words),
+            "word_count": int(len(words)),
             "words": words,
         }
 
