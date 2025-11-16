@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python Virtual Environment
+venv/
+backend/venv/
+env/
+ENV/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build
+.next/
+out/
+dist/
+build/
+
+# Data & Uploads
+data/
+backend/uploads/
+backend/results/
+backend/static/
+backend/tests/
+*.db
+*.sqlite
+
+# Backend - Unused folders
+backend/app/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.log

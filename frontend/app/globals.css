@@ -1,0 +1,337 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg-card: #ffffff;
+  --color-bg-light: #fef3c7;
+  --color-bg-lighter: #fde68a;
+  --color-border: #e5e7eb;
+  --color-text-primary: #000000;
+  --color-text-secondary: #374151;
+  --color-text-dark: #1f2937;
+  --color-button: #fee500;
+  --color-button-hover: #fada0a;
+
+  /* 카카오 색상 변수 */
+  --color-primary: #fee500; /* 카카오 옐로우 */
+  --color-primary-hover: #fada0a; /* 카카오 옐로우 호버 */
+  --color-secondary: #3c1e1e; /* 카카오 브라운 */
+  --color-secondary-hover: #5a2e2e; /* 카카오 브라운 호버 */
+  --color-success: #34d399; /* green-400 */
+  --color-success-hover: #10b981; /* green-500 */
+  --color-danger: #f87171; /* red-400 */
+  --color-danger-hover: #ef4444; /* red-500 */
+  --color-info: #a78bfa; /* purple-400 */
+  --color-info-hover: #8b5cf6; /* purple-500 */
+}
+
+/* 전역 설정 */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-chiron-go-round), "Chiron Go Round TC", system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  background: #ffffff;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* 메인 카드 스타일 */
+.card {
+  background-color: var(--color-bg-card);
+  @apply rounded-xl;
+  padding: 1.25rem;
+  animation: fadeInUp 0.5s ease-out;
+  transition: transform 0.2s ease;
+}
+
+/* 태블릿 이상 화면 */
+@media (min-width: 640px) {
+  .card {
+    padding: 1.5rem;
+  }
+}
+
+/* OCR 텍스트 */
+.ocr-text {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* 애니메이션 정의 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Float 애니메이션 - 이모지용 */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* 부드러운 펄스 - 숫자 뱃지용 */
+@keyframes pulseSoft {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+/* 살랑살랑 흔들기 */
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-3deg);
+  }
+  75% {
+    transform: rotate(3deg);
+  }
+}
+
+/* 로딩 스피너 애니메이션 */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.8);
+  }
+}
+
+/* 페이드 인 클래스 */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+.animate-pulse-soft {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-bounce-soft {
+  animation: bounce 1s ease-in-out infinite;
+}
+
+/* 새로운 애니메이션 클래스 */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-float-delay-1 {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.animate-float-delay-2 {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-pulse-badge {
+  animation: pulseSoft 2s ease-in-out infinite;
+}
+
+.animate-wiggle {
+  animation: wiggle 2.5s ease-in-out infinite;
+}
+
+/* 호버 시 애니메이션 */
+.hover-float:hover {
+  animation: float 0.6s ease-in-out;
+}
+
+.hover-wiggle:hover {
+  animation: wiggle 0.5s ease-in-out;
+}
+
+/* 버튼 효과 개선 */
+.btn-enhanced {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-enhanced::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-enhanced:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-enhanced:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn-enhanced:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* 버튼 호버 시 살짝 커지기 */
+.hover-scale:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
+}
+
+.hover-scale-sm:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* 그룹 호버 효과 */
+.group:hover .group-hover\:scale-110 {
+  transform: scale(1.1);
+}
+
+.group:hover .group-hover\:translate-x-1 {
+  transform: translateX(0.25rem);
+}
+
+/* 그림자 효과 */
+.shadow-glow {
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.2),
+    0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-glow-lg {
+  box-shadow: 0 0 30px rgba(251, 191, 36, 0.3),
+    0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* 호버 시 빛나는 효과 */
+.hover-glow:hover {
+  box-shadow: 0 0 25px rgba(251, 191, 36, 0.4), 0 10px 20px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+/* CSS 변수 기반 유틸리티 클래스 */
+@layer utilities {
+  .bg-theme-light {
+    background-color: var(--color-bg-light);
+  }
+  .bg-theme-lighter {
+    background-color: var(--color-bg-lighter);
+  }
+  .text-theme-primary {
+    color: var(--color-text-primary);
+  }
+  .text-theme-secondary {
+    color: var(--color-text-secondary);
+  }
+  .text-theme-dark {
+    color: var(--color-text-dark);
+  }
+  .border-theme {
+    border-color: var(--color-border);
+  }
+  .bg-theme-button {
+    background-color: var(--color-button);
+  }
+  .bg-theme-button-hover:hover {
+    background-color: var(--color-button-hover);
+  }
+}
