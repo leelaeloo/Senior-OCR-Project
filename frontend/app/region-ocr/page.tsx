@@ -377,8 +377,8 @@ export default function RegionOCR() {
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
               부분 읽기
             </h2>
-            <p className="text-base md:text-lg text-gray-600 mb-6">
-              사진을 올리고, 읽을 부분을 손가락 또는 마우스로 표시해주세요!
+            <p className="text-base md:text-lg text-gray-700 mb-6">
+              사진을 올리고, 읽을 부분을 손가락 또는 마우스로 표시해주세요
               <br />
               천천히 그어도 괜찮아요!
             </p>
@@ -531,36 +531,16 @@ export default function RegionOCR() {
                   <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-2">
                     추출 결과
                   </h1>
-                  <p className="text-base md:text-2xl text-gray-700 font-medium text-center">
-                    ✅ 글씨를 찾았어요!
+                  <p className="text-base md:text-xl text-blue-800 font-medium text-center">
+                    글씨를 찾았어요!
                   </p>
                 </div>
 
-                {/* 결과 텍스트 박스 */}
-                <div className="bg-yellow-100 rounded-2xl p-5 mb-4 max-h-[50vh] overflow-auto">
-                  <p className="text-lg leading-relaxed ocr-text text-gray-900 whitespace-pre-wrap">
-                    {result.text || "텍스트를 찾을 수 없습니다"}
+                {/* 결과 텍스트 박스 (스크롤 가능) */}
+                <div className="bg-gray-100 rounded-2xl p-5 mb-4 max-h-[60vh] overflow-y-auto">
+                  <p className="text-base leading-relaxed text-black whitespace-pre-wrap">
+                    {result.text || "글씨를 찾을 수 없어요"}
                   </p>
-                </div>
-
-                {/* 상세 정보 */}
-                <div className="bg-yellow-50 rounded-2xl p-4 mb-4 space-y-2">
-                  <div className="flex justify-between py-1">
-                    <span className="text-gray-700 text-sm font-medium">
-                      글자 개수
-                    </span>
-                    <span className="font-bold text-gray-900 text-base">
-                      {result.word_count}개
-                    </span>
-                  </div>
-                  <div className="flex justify-between py-1">
-                    <span className="text-gray-700 text-sm font-medium">
-                      정확도
-                    </span>
-                    <span className="font-bold text-gray-900 text-base">
-                      {result.confidence}%
-                    </span>
-                  </div>
                 </div>
 
                 {/* TTS 버튼 */}
