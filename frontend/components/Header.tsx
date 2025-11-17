@@ -1,5 +1,6 @@
 "use client";
 
+// 헤더
 import { useRouter } from "next/navigation";
 import Logo from "./Logo";
 
@@ -33,28 +34,42 @@ export default function Header({
   const displayButtons = showDefaultButtons ? defaultButtons : buttons || [];
 
   return (
-    <header className="bg-white sticky top-0 z-50 border-b border-gray-200 shadow-sm" style={{ width: '100vw', position: 'sticky', left: 0, right: 0 }}>
-      <div style={{
-        maxWidth: '1280px',
-        margin: '0 auto',
-        paddingLeft: '1rem',
-        paddingRight: '1rem',
-        width: '100%',
-        boxSizing: 'border-box'
-      }}>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          height: '80px'
-        }}>
-          <div style={{ width: 'clamp(160px, 40vw, 280px)', flexShrink: 0 }}>
+    <header
+      className="bg-white sticky top-0 z-50 border-b border-gray-200 shadow-sm"
+      style={{ width: "100vw", position: "sticky", left: 0, right: 0 }}
+    >
+      <div
+        style={{
+          maxWidth: "1280px",
+          margin: "0 auto",
+          paddingLeft: "1rem",
+          paddingRight: "1rem",
+          width: "100%",
+          boxSizing: "border-box",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            height: "80px",
+          }}
+        >
+          <div style={{ width: "clamp(160px, 40vw, 280px)", flexShrink: 0 }}>
             <div className="cursor-pointer" onClick={() => router.push("/")}>
               <Logo />
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0 }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              flexShrink: 0,
+            }}
+          >
             {displayButtons.map((button, index) => (
               <button
                 key={index}

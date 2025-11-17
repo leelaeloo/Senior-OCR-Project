@@ -1,7 +1,3 @@
-/**
- * API 클라이언트
- */
-
 import axios from "axios";
 import { API_URL } from "@/lib/config";
 import { OCRResult, HistoryItem, APIResponse } from "@/types";
@@ -12,13 +8,9 @@ const client = axios.create({
   withCredentials: false,
 });
 
-/**
- * OCR 처리 API
- */
+// OCR
 export const ocrAPI = {
-  /**
-   * 전체 이미지 OCR 처리
-   */
+  // 이미지 OCR 처리
   processImage: async (file: File, language: string = "kor+eng") => {
     const formData = new FormData();
     formData.append("file", file);
@@ -37,9 +29,7 @@ export const ocrAPI = {
     return response.data;
   },
 
-  /**
-   * 영역 선택 OCR 처리
-   */
+  // 영역 선택 OCR
   processRegion: async (
     file: File,
     x: number,
@@ -70,13 +60,9 @@ export const ocrAPI = {
   },
 };
 
-/**
- * 히스토리 API
- */
+// 히스토리 API
 export const historyAPI = {
-  /**
-   * 히스토리 목록 조회
-   */
+  // 히스토리 목록 조회
   getList: async (limit: number = 50) => {
     const response = await client.get<APIResponse<HistoryItem[]>>(
       `/history?limit=${limit}`
@@ -84,9 +70,7 @@ export const historyAPI = {
     return response.data;
   },
 
-  /**
-   * 히스토리 상세 조회
-   */
+  // 히스토리 상세 조회
   getDetail: async (id: number) => {
     const response = await client.get<APIResponse<HistoryItem>>(
       `/history/${id}`
@@ -94,9 +78,7 @@ export const historyAPI = {
     return response.data;
   },
 
-  /**
-   * 히스토리 삭제
-   */
+  // 히스토리 삭제
   delete: async (id: number) => {
     const response = await client.delete<APIResponse<void>>(`/history/${id}`);
     return response.data;

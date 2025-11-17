@@ -126,7 +126,7 @@ body {
   }
 }
 
-/* Float 애니메이션 - 이모지용 */
+/* Float 애니메이션 */
 @keyframes float {
   0%,
   100% {
@@ -137,7 +137,7 @@ body {
   }
 }
 
-/* 부드러운 펄스 - 숫자 뱃지용 */
+/* 부드러운 펄스 */
 @keyframes pulseSoft {
   0%,
   100% {
@@ -150,7 +150,7 @@ body {
   }
 }
 
-/* 살랑살랑 흔들기 */
+/* 살랑살랑 흔들리는 모션 */
 @keyframes wiggle {
   0%,
   100% {
@@ -206,7 +206,7 @@ body {
   animation: bounce 1s ease-in-out infinite;
 }
 
-/* 새로운 애니메이션 클래스 */
+/* 애니메이션 클래스 */
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }

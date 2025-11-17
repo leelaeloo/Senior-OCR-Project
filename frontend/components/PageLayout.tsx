@@ -1,5 +1,6 @@
 "use client";
 
+// 페이지 공통 레이아웃
 import { useRouter } from "next/navigation";
 import Header from "./Header";
 
@@ -10,8 +11,8 @@ interface PageLayoutProps {
     label: string;
     onClick: () => void;
   }>;
-  maxWidth?: "4xl" | "7xl"; // 컨텐츠 최대 너비
-  transparentBg?: boolean; // 배경을 투명
+  maxWidth?: "4xl" | "7xl";
+  transparentBg?: boolean;
 }
 
 export default function PageLayout({

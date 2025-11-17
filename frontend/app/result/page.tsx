@@ -1,5 +1,6 @@
 "use client";
 
+// 사진 찍기 페이지
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import PageLayout from "@/components/PageLayout";
@@ -91,11 +92,11 @@ export default function ResultPage() {
     >
       {!result && (
         <div className="max-w-3xl mx-auto">
-          <div className="card bg-white text-center mb-8 shadow-sm">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <div className="card bg-white text-center mb-4 md:mb-6 shadow-sm animate-fade-in">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-3 animate-slide-down">
               📸 사진 찍기
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
+            <p className="text-sm md:text-base lg:text-lg text-gray-600 mb-5 md:mb-6 leading-relaxed">
               읽고 싶은 글자가 있는 문서를 사진으로 찍어보세요!
               <br />
               사진 속 글자를 크게 보여드리고 소리로 읽어드려요!
@@ -106,11 +107,13 @@ export default function ResultPage() {
             ) : (
               <>
                 {error && (
-                  <div className="mb-6 bg-red-50 border border-red-200 p-5 rounded-xl text-center animate-fade-in">
-                    <p className="text-base md:text-lg text-red-800 font-medium">{error}</p>
+                  <div className="mb-4 md:mb-5 bg-red-50 border border-red-200 p-3 md:p-4 rounded-xl text-center animate-fade-in">
+                    <p className="text-xs md:text-base text-red-800 font-medium">
+                      {error}
+                    </p>
                     <button
                       onClick={() => setError(null)}
-                      className="mt-3 text-sm text-red-600 hover:text-red-800 underline font-medium"
+                      className="mt-2 text-xs md:text-sm text-red-600 hover:text-red-800 underline font-medium"
                     >
                       닫기
                     </button>
@@ -119,60 +122,62 @@ export default function ResultPage() {
 
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="bg-black hover:bg-gray-800 text-white font-bold px-10 py-6 rounded-2xl transition-all duration-300 inline-flex items-center gap-3 text-xl shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+                  className="bg-black hover:bg-gray-800 text-white font-bold px-6 md:px-8 py-4 md:py-5 rounded-2xl transition-all duration-300 inline-flex items-center gap-2 text-base md:text-lg shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
                 >
-                  <Camera className="w-7 h-7" />
+                  <Camera className="w-5 h-5 md:w-6 md:h-6" />
                   사진 선택
                 </button>
               </>
             )}
           </div>
 
-          {/* 사용 가이드 - 로딩 중이 아닐 때만 표시 */}
           {!isProcessing && (
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-2xl p-6 md:p-8 shadow-sm">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="text-3xl">📖</span>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+            <div
+              className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-2xl p-4 md:p-6 shadow-sm animate-slide-up"
+              style={{ animationDelay: "100ms" }}
+            >
+              <div className="flex items-center gap-2 mb-4 md:mb-5">
+                <span className="text-xl md:text-2xl">📖</span>
+                <h2 className="text-lg md:text-2xl font-bold text-gray-900">
                   이렇게 사용하세요
                 </h2>
               </div>
-              <div className="space-y-4">
-                <div className="flex items-start gap-4 bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow duration-300">
-                  <div className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0 text-lg shadow-md">
+              <div className="space-y-2 md:space-y-3">
+                <div className="flex items-start gap-2 md:gap-3 bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <div className="bg-blue-500 text-white rounded-full w-7 h-7 md:w-8 md:h-8 flex items-center justify-center font-bold flex-shrink-0 text-sm md:text-base shadow-md">
                     1
                   </div>
                   <div>
-                    <p className="font-bold text-xl md:text-2xl text-gray-900 mb-2">
+                    <p className="font-bold text-sm md:text-lg text-gray-900 mb-0.5 md:mb-1">
                       사진을 선택하세요
                     </p>
-                    <p className="text-base md:text-lg text-gray-600 leading-relaxed">
+                    <p className="text-xs md:text-base text-gray-600 leading-relaxed">
                       약봉투, 신문, 편지 등 읽고 싶은 문서를 찍거나 선택해주세요
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start gap-4 bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow duration-300">
-                  <div className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0 text-lg shadow-md">
+                <div className="flex items-start gap-2 md:gap-3 bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <div className="bg-blue-500 text-white rounded-full w-7 h-7 md:w-8 md:h-8 flex items-center justify-center font-bold flex-shrink-0 text-sm md:text-base shadow-md">
                     2
                   </div>
                   <div>
-                    <p className="font-bold text-xl md:text-2xl text-gray-900 mb-2">
+                    <p className="font-bold text-sm md:text-lg text-gray-900 mb-0.5 md:mb-1">
                       글자를 확인하세요
                     </p>
-                    <p className="text-base md:text-lg text-gray-600 leading-relaxed">
+                    <p className="text-xs md:text-base text-gray-600 leading-relaxed">
                       사진 속 글자를 크게 보여드려요
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start gap-4 bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow duration-300">
-                  <div className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0 text-lg shadow-md">
+                <div className="flex items-start gap-2 md:gap-3 bg-white rounded-xl p-3 md:p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <div className="bg-blue-500 text-white rounded-full w-7 h-7 md:w-8 md:h-8 flex items-center justify-center font-bold flex-shrink-0 text-sm md:text-base shadow-md">
                     3
                   </div>
                   <div>
-                    <p className="font-bold text-xl md:text-2xl text-gray-900 mb-2">
+                    <p className="font-bold text-sm md:text-lg text-gray-900 mb-0.5 md:mb-1">
                       소리로 듣기
                     </p>
-                    <p className="text-base md:text-lg text-gray-600 leading-relaxed">
+                    <p className="text-xs md:text-base text-gray-600 leading-relaxed">
                       버튼만 누르면 소리로 읽어드려요
                     </p>
                   </div>
@@ -183,11 +188,13 @@ export default function ResultPage() {
         </div>
       )}
 
-      {/* 결과 섹션 (이미지 업로드 후 표시) */}
       {imageUrl && result && (
-        <div id="result-section" className="grid md:grid-cols-2 gap-8">
-          <div className="card bg-white">
-            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 text-center">
+        <div id="result-section" className="grid md:grid-cols-2 gap-5 md:gap-6">
+          <div
+            className="card bg-white animate-slide-up"
+            style={{ animationDelay: "100ms" }}
+          >
+            <h3 className="text-base md:text-xl font-bold text-gray-900 mb-2 md:mb-3 text-center">
               선택한 사진
             </h3>
             <div className="flex justify-center">
@@ -199,25 +206,28 @@ export default function ResultPage() {
             </div>
           </div>
 
-          <div className="card bg-white">
-            <div className="mb-4 pb-4 border-b-2 border-gray-200">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-2">
+          <div
+            className="card bg-white animate-slide-up"
+            style={{ animationDelay: "200ms" }}
+          >
+            <div className="mb-2 md:mb-3 pb-2 md:pb-3 border-b-2 border-gray-200">
+              <h2 className="text-lg md:text-2xl font-bold text-gray-900 text-center mb-1">
                 추출 결과
               </h2>
-              <p className="text-lg md:text-xl text-gray-600 text-center">
+              <p className="text-sm md:text-base text-gray-600 text-center">
                 글씨를 찾았어요!
               </p>
             </div>
 
-            <div className="bg-gray-100 rounded-2xl p-5 mb-4 max-h-[60vh] overflow-y-auto">
-              <p className="text-base leading-relaxed text-black whitespace-pre-wrap">
+            <div className="bg-gray-100 rounded-2xl p-3 md:p-4 mb-2 md:mb-3 max-h-[60vh] overflow-y-auto">
+              <p className="text-xs md:text-sm leading-relaxed text-black whitespace-pre-wrap">
                 {result.text || "글씨를 찾을 수 없어요"}
               </p>
             </div>
 
             <button
               onClick={handleSpeak}
-              className={`w-full py-5 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl ${
+              className={`w-full py-3 md:py-4 rounded-xl font-bold text-sm md:text-base transition-all duration-300 shadow-lg hover:shadow-xl ${
                 isSpeaking
                   ? "bg-red-500 hover:bg-red-600 text-white"
                   : "bg-black hover:bg-gray-800 text-white"
@@ -226,13 +236,13 @@ export default function ResultPage() {
               {isSpeaking ? "⏹️ 소리 멈추기" : "🔊 소리로 읽어주기"}
             </button>
 
-            <div className="grid grid-cols-2 gap-4 mt-4">
+            <div className="grid grid-cols-2 gap-2 md:gap-3 mt-2 md:mt-3">
               <button
                 onClick={handleReset}
-                className="bg-gray-50 border border-gray-200 hover:bg-gray-100 rounded-xl p-4 transition-all duration-300 shadow-sm hover:shadow-md"
+                className="bg-gray-50 border border-gray-200 hover:bg-gray-100 rounded-xl p-2.5 md:p-3 transition-all duration-300 shadow-sm hover:shadow-md"
               >
                 <div className="text-center">
-                  <p className="text-base md:text-lg font-bold text-gray-900">
+                  <p className="text-xs md:text-base font-bold text-gray-900">
                     🔄 다시 선택
                   </p>
                 </div>
@@ -240,10 +250,12 @@ export default function ResultPage() {
 
               <button
                 onClick={handleCopy}
-                className="bg-gray-50 border border-gray-200 hover:bg-gray-100 rounded-xl p-4 transition-all duration-300 shadow-sm hover:shadow-md"
+                className="bg-gray-50 border border-gray-200 hover:bg-gray-100 rounded-xl p-2.5 md:p-3 transition-all duration-300 shadow-sm hover:shadow-md"
               >
                 <div className="text-center">
-                  <p className="text-base md:text-lg font-bold text-gray-900">📋 복사</p>
+                  <p className="text-xs md:text-base font-bold text-gray-900">
+                    📋 복사
+                  </p>
                 </div>
               </button>
             </div>

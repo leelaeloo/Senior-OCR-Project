@@ -1,3 +1,4 @@
+// 로고
 export default function Logo() {
   return (
     <svg
@@ -9,7 +10,7 @@ export default function Logo() {
         verticalAlign: "middle",
         width: "100%",
         height: "auto",
-        maxWidth: "280px"
+        maxWidth: "280px",
       }}
     >
       <path d="M15 35 L15 135 L73 135 L78 127 L78 35 L73 30 Z" fill="#FDB91A" />

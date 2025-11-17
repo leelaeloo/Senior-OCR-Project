@@ -1,5 +1,6 @@
 "use client";
 
+// 기록 페이지
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Trash2, Volume2 } from "lucide-react";
@@ -302,12 +303,8 @@ export default function HistoryPage() {
                     </p>
 
                     <div className="flex gap-6 text-base md:text-lg text-gray-600 mb-5 pb-4 border-b border-gray-200">
-                      <span>
-                        📝 {item.word_count}자
-                      </span>
-                      <span>
-                        ✅ {item.confidence}%
-                      </span>
+                      <span>📝 {item.word_count}자</span>
+                      <span>✅ {item.confidence}%</span>
                     </div>
 
                     <div className="flex gap-3">

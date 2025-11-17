@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import FloatingRemote from "@/components/FloatingRemote";
 
 const chironGoRound = localFont({
   src: "../components/fonts/ChironGoRoundTC-VariableFont_wght.ttf",
@@ -42,7 +43,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={chironGoRound.variable}>
-      <body className={`bg-gray-50 ${chironGoRound.className}`}>{children}</body>
+      <body className={`bg-gray-50 ${chironGoRound.className}`}>
+        <FloatingRemote />
+        {children}
+      </body>
     </html>
   );
 }

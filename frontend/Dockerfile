@@ -1,38 +1,49 @@
 FROM node:20-alpine AS base
+RUN apk add --no-cache libc6-compat
 
-# 의존성 설치 스테이지
 FROM base AS deps
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci
+COPY package.json package-lock.json* ./
+RUN npm ci --only=production && \
+    npm cache clean --force
 
-# 빌드 스테이지
+FROM base AS deps-build
+WORKDIR /app
+COPY package.json package-lock.json* ./
+RUN npm ci && \
+    npm cache clean --force
+
 FROM base AS builder
 WORKDIR /app
 
-COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps-build /app/node_modules ./node_modules
 COPY . .
 
-# 환경 변수 (빌드 시)
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_TELEMETRY_DISABLED=1
 
-# Next.js 빌드
 RUN npm run build
 
-# 프로덕션 스테이지
 FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
-# 프로덕션 의존성만 복사
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=builder /app/.next ./.next
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
+
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/package*.json ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+CMD ["node", "server.js"]

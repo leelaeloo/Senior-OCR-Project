@@ -1,3 +1,4 @@
+// 카드 컴포넌트
 import { OCRResult } from "@/types";
 
 interface OCRResultCardProps {
