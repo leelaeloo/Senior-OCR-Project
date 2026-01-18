@@ -27,61 +27,61 @@ export default function FloatingRemote() {
       icon: Home,
       label: "홈",
       onClick: () => router.push("/"),
-      color: "bg-blue-400 hover:bg-blue-500",
+      color: "bg-amber-300 hover:bg-amber-400",
     },
     {
       icon: Camera,
       label: "사진찍기",
       onClick: () => router.push("/result"),
-      color: "bg-green-400 hover:bg-green-500",
+      color: "bg-yellow-300 hover:bg-yellow-400",
     },
     {
       icon: History,
       label: "기록보기",
       onClick: () => router.push("/history"),
-      color: "bg-purple-400 hover:bg-purple-500",
+      color: "bg-amber-300 hover:bg-amber-400",
     },
     {
       icon: HelpCircle,
       label: "도움말",
       onClick: () => router.push("/guide"),
-      color: "bg-orange-400 hover:bg-orange-500",
+      color: "bg-yellow-300 hover:bg-yellow-400",
     },
   ];
 
   return (
-    <div className="fixed right-6 top-20 z-50 hidden md:block">
+    <div className="fixed right-4 top-16 z-50 md:right-6 md:top-20 hidden md:block">
       <div className="relative">
-        <div className="absolute inset-0 bg-yellow-200 rounded-full blur-xl opacity-40 animate-pulse"></div>
+        <div className="absolute inset-0 bg-amber-200 rounded-full blur-xl opacity-50 animate-pulse"></div>
 
         <button
           onClick={() => setIsExpanded(!isExpanded)}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className="relative w-20 h-20 bg-gradient-to-br from-yellow-200 via-amber-100 to-yellow-100 hover:from-yellow-300 hover:via-amber-200 hover:to-yellow-200 rounded-full shadow-xl transition-all duration-300 transform hover:scale-110 active:scale-95 flex flex-col items-center justify-center border-4 border-white"
+          className="relative w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-amber-200 via-yellow-300 to-amber-200 hover:from-amber-300 hover:via-yellow-400 hover:to-amber-300 rounded-full shadow-xl transition-all duration-300 transform hover:scale-110 active:scale-95 flex flex-col items-center justify-center border-4 border-white"
           title={isExpanded ? "닫기" : "메뉴 열기"}
         >
           <div className="flex gap-2">
             <div
-              className={`w-2 h-2 bg-gray-700 rounded-full transition-all duration-200 ${
+              className={`w-2 h-2 bg-white rounded-full transition-all duration-200 ${
                 isBlinking ? "scale-y-[0.2]" : ""
               } ${isHovered ? "scale-150" : ""}`}
             ></div>
             <div
-              className={`w-2 h-2 bg-gray-700 rounded-full transition-all duration-200 ${
+              className={`w-2 h-2 bg-white rounded-full transition-all duration-200 ${
                 isBlinking ? "scale-y-[0.2]" : ""
               } ${isHovered ? "scale-150" : ""}`}
             ></div>
           </div>
 
-          <div className="flex gap-6 absolute top-9">
+          <div className="flex gap-5 absolute top-8">
             <div
-              className={`w-2 h-2 bg-orange-300 rounded-full transition-all duration-300 ${
+              className={`w-2 h-2 bg-pink-300 rounded-full transition-all duration-300 ${
                 isHovered ? "opacity-100 scale-125" : "opacity-60"
               }`}
             ></div>
             <div
-              className={`w-2 h-2 bg-orange-300 rounded-full transition-all duration-300 ${
+              className={`w-2 h-2 bg-pink-300 rounded-full transition-all duration-300 ${
                 isHovered ? "opacity-100 scale-125" : "opacity-60"
               }`}
             ></div>
@@ -89,24 +89,24 @@ export default function FloatingRemote() {
         </button>
 
         <div
-          className={`absolute right-24 top-1/2 -translate-y-1/2 transition-all duration-300 ${
+          className={`absolute right-16 md:right-20 top-1/2 -translate-y-1/2 transition-all duration-300 ${
             !isExpanded
               ? "opacity-100 translate-x-0"
               : "opacity-0 translate-x-4 pointer-events-none"
           }`}
         >
-          <div className="relative bg-white rounded-2xl shadow-xl px-4 py-2.5 border-2 border-yellow-300">
+          <div className="relative bg-white rounded-2xl shadow-xl px-4 py-2.5 border-2 border-amber-300">
             <p className="text-gray-800 text-sm font-medium whitespace-nowrap">
               무엇을 도와드릴까요?
             </p>
 
-            <div className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-[10px] border-t-transparent border-l-[12px] border-l-yellow-300 border-b-[10px] border-b-transparent"></div>
+            <div className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-[10px] border-t-transparent border-l-[12px] border-l-amber-300 border-b-[10px] border-b-transparent"></div>
             <div className="absolute left-full top-1/2 -translate-y-1/2 -translate-x-[2px] w-0 h-0 border-t-[8px] border-t-transparent border-l-[10px] border-l-white border-b-[8px] border-b-transparent"></div>
           </div>
         </div>
 
         <div
-          className={`absolute left-1/2 -translate-x-1/2 top-24 flex flex-col gap-2 transition-all duration-300 ${
+          className={`absolute left-1/2 -translate-x-1/2 top-16 md:top-20 flex flex-col gap-2 transition-all duration-300 ${
             isExpanded
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-4 pointer-events-none"
@@ -118,13 +118,13 @@ export default function FloatingRemote() {
               <div key={index} className="relative group">
                 <button
                   onClick={button.onClick}
-                  className={`w-14 h-14 ${button.color} rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 hover:rotate-6 active:scale-95 flex items-center justify-center border-2 border-white`}
+                  className={`w-10 h-10 md:w-12 md:h-12 ${button.color} rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 hover:rotate-6 active:scale-95 flex items-center justify-center border-2 border-white`}
                   style={{
                     transitionDelay: isExpanded ? `${index * 50}ms` : "0ms",
                   }}
                   title={button.label}
                 >
-                  <Icon className="w-6 h-6 text-white" />
+                  <Icon className="w-5 h-5 text-white" />
                 </button>
 
                 <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">

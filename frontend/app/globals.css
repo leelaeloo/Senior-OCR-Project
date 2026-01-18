@@ -308,6 +308,11 @@ body {
   transition: box-shadow 0.3s ease;
 }
 
+/* iOS Safe Area (노치 대응) */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
 /* CSS 변수 기반 유틸리티 클래스 */
 @layer utilities {
   .bg-theme-light {
