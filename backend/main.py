@@ -1,9 +1,16 @@
+import os
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from database import init_db
 from routes import ocr, history
+
+# CORS 허용 도메인 설정
+ALLOWED_ORIGINS = os.getenv(
+    "ALLOWED_ORIGINS",
+    "https://goodboy.kakaolab.cloud,https://www.goodboy.kakaolab.cloud,http://localhost:3000"
+).split(",")
 
 
 @asynccontextmanager
@@ -23,7 +30,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -40,6 +47,12 @@ async def root():
         "message": "시니어 친화 OCR API 실행 중",
         "version": "1.0.0",
     }
+
+
+@app.get("/health")
+async def health_check():
+    """헬스체크 엔드포인트 (Docker/로드밸런서용)"""
+    return {"status": "healthy"}
 
 
 if __name__ == "__main__":

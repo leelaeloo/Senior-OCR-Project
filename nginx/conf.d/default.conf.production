@@ -1,7 +1,32 @@
-# 로컬 개발용 HTTP 전용 설정
+# --- HTTP to HTTPS Redirect ---
 server {
     listen 80;
-    server_name localhost;
+    server_name goodboy.kakaolab.cloud;
+
+    # 헬스체크 엔드포인트 (Docker/로드밸런서용)
+    location /health {
+        return 200 'healthy';
+        add_header Content-Type text/plain;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+# --- HTTPS Server ---
+server {
+    listen 443 ssl;
+    server_name goodboy.kakaolab.cloud;
+
+    # --- SSL Certificates ---
+    ssl_certificate /etc/letsencrypt/live/goodboy.kakaolab.cloud/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/goodboy.kakaolab.cloud/privkey.pem;
+
+    # --- SSL Settings ---
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers on;
 
     # --- Security Headers ---
     add_header X-Frame-Options "SAMEORIGIN";

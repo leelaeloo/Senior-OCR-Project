@@ -13,7 +13,7 @@ from models import OCRHistory
 from services.ocr_service import extract_text
 from utils.image_processing import crop_image_region
 
-router = APIRouter(tags=["OCR"], prefix="/api")
+router = APIRouter(tags=["OCR"])
 
 # 상수 정의
 UPLOAD_DIR = os.getenv("UPLOAD_DIR", "./uploads")

@@ -24,24 +24,24 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
+# 보안을 위해 non-root 사용자 먼저 생성
+RUN useradd -m -u 1000 appuser
+
 WORKDIR /app
 
-# 빌더에서 설치된 패키지 복사
-COPY --from=builder /root/.local /root/.local
-ENV PATH=/root/.local/bin:$PATH
+# 빌더에서 설치된 패키지를 appuser 홈으로 복사
+COPY --from=builder --chown=appuser:appuser /root/.local /home/appuser/.local
+ENV PATH=/home/appuser/.local/bin:$PATH
 
-# 애플리케이션 코드만 복사
-COPY main.py database.py models.py ./
-COPY routes/ ./routes/
-COPY services/ ./services/
-COPY utils/ ./utils/
+# 애플리케이션 코드 복사
+COPY --chown=appuser:appuser main.py database.py models.py ./
+COPY --chown=appuser:appuser routes/ ./routes/
+COPY --chown=appuser:appuser services/ ./services/
+COPY --chown=appuser:appuser utils/ ./utils/
 
 # 디렉토리 생성
-RUN mkdir -p uploads results
+RUN mkdir -p uploads results && chown -R appuser:appuser /app
 
-# 보안을 위해 non-root 사용자 생성
-RUN useradd -m -u 1000 appuser && \
-    chown -R appuser:appuser /app
 USER appuser
 
 EXPOSE 8000

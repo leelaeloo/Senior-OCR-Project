@@ -11,18 +11,17 @@ services:
     volumes:
       - ./backend/uploads:/app/uploads
       - ./backend/results:/app/results
-      - ./backend/ocr_history.db:/app/ocr_history.db
     environment:
-      - DEBUG=false
+      - DEBUG=true
       - UPLOAD_DIR=/app/uploads
       - RESULTS_DIR=/app/results
-      - ALLOWED_ORIGINS=https://goodboy.kakaolab.cloud,https://www.goodboy.kakaolab.cloud
+      - ALLOWED_ORIGINS=http://localhost:3000,http://localhost:80,http://127.0.0.1:3000
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 60s
     networks:
       - ocr-network
 
@@ -31,7 +30,7 @@ services:
     build:
       context: ./frontend
       args:
-        - NEXT_PUBLIC_API_URL=https://goodboy.kakaolab.cloud/api
+        - NEXT_PUBLIC_API_URL=http://localhost/api
     container_name: ocr-frontend
     restart: unless-stopped
     ports:
@@ -39,38 +38,29 @@ services:
     environment:
       - NODE_ENV=production
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (r) => process.exit(r.statusCode === 200 ? 0 : 1))"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 60s
+      start_period: 90s
     depends_on:
       backend:
         condition: service_healthy
     networks:
       - ocr-network
 
-  # Nginx
+  # Nginx (로컬용 - SSL 없음)
   nginx:
     image: nginx:latest
     container_name: ocr-nginx
     restart: unless-stopped
     ports:
       - "80:80"
-      - "443:443"
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - /etc/letsencrypt:/etc/letsencrypt:ro
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
-      frontend:
-        condition: service_healthy
-      backend:
-        condition: service_healthy
+      - frontend
+      - backend
     networks:
       - ocr-network
 
